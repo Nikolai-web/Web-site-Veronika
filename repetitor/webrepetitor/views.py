@@ -39,7 +39,7 @@ def price(request):
 
 
 def predmet(request):
-    """Предметы"""
+    """Предметы преподавания"""
     bbs = Bd.objects.all()
     rubrics = Rubric.objects.all()
     context = {'bbs': bbs, 'rubrics': rubrics}
