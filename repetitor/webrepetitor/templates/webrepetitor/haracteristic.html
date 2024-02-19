@@ -1,0 +1,25 @@
+{% extends 'webrepetitor/base.html' %}
+
+{% block title %}
+    Характеристики
+{% endblock %}
+
+
+{% block content %}
+
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal text-body-emphasis">Моя характеристика</h1>
+      <p class="fs-5 text-body-secondary"><ya-tr-span data-index="6-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Quickly build an effective pricing table for your potential customers with this Bootstrap example. " data-translation="Качественная подача материала - один из главных факторов для восприятия. " data-ch="0" data-type="trSpan">Заключается к применению иновационных подходах к преподаванию. </ya-tr-span><ya-tr-span data-index="6-1" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Постороение занятия с использованием научного подхода к клиенту" data-translation="Постороение занятия с использованием научного подхода к клиенту" data-ch="0" data-type="trSpan"></ya-tr-span></p>
+ {% for el in bbs %}
+
+        <div class="alert alert-warning mt-2">
+
+             <h3>{{ el.published_time }}</h3>
+            <p>Дата публикации</p>
+
+        </div>
+        {% endfor %}
+{% endblock %}
+
+
+
