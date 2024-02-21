@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Bd, Rubric
 from django.core.paginator import Paginator
+from .forms import EmailPostForm
 
 
 
@@ -51,7 +52,19 @@ def predmet(request):
 
 
 
-
+def post_share(request, post_id):
+    # Извлечь пост по id
+    post = get_object_or_404(Bd, id=post_id, status=Bd.status.PUBLISHED)
+    if request.method == 'POST':
+        # Форма была передана на обработку
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            # Поля формы прошли валидацию
+            cd = form.cleaned_data
+            # ....отправить электронное письмо
+    else:
+        form = EmailPostForm()
+    return render(request, 'webrepetitor/share.html', {'post': post, 'form': form})
 
 
 
