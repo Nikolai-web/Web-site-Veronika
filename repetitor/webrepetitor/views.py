@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Bd, Rubric
-
+from django.core.paginator import Paginator
 
 
 
@@ -9,7 +9,11 @@ def main_page(request):
     """Домашняя страница сайта"""
     bbs = Bd.objects.all()
     rubrics = Rubric.objects.all()
-    context = {'bbs': bbs, 'rubrics': rubrics}
+    # Постраничная разбивка
+    paginator = Paginator(bbs, 1)
+    page_nam = request.GET.get('page', 1)
+    page = paginator.get_page(page_nam)
+    context = {'rubrics': rubrics, 'page': page, 'bbs': page.object_list}
     return render(request, 'webrepetitor/main_page.html', context)
 
 
@@ -44,7 +48,6 @@ def predmet(request):
     rubrics = Rubric.objects.all()
     context = {'bbs': bbs, 'rubrics': rubrics}
     return render(request, 'webrepetitor/predmet.html', context)
-
 
 
 
