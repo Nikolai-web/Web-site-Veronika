@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Bd, Rubric
 from django.core.paginator import Paginator
 from .forms import EmailPostForm
-
+from django.core.mail import send_mail
 
 
 
@@ -22,7 +22,7 @@ def main_page(request):
 def rubric(request):
     """Информация о рубриках"""
     bbs = Bd.objects.order_by('id')
-    rubric = Rubric.objects.order_by('id')
+    rubric = Rubric.objects.all()
     context = {'bbs': bbs, 'rubrics': rubric}
     return render(request, 'webrepetitor/rubrici.html', context)
 
@@ -52,9 +52,10 @@ def predmet(request):
 
 
 
-def post_share(request, post_id):
+def share(request):
     # Извлечь пост по id
-    post = get_object_or_404(Bd, id=post_id, status=Bd.status.PUBLISHED)
+    post = get_object_or_404(Bd, id=1, status=Bd.Status.PUBLISHED)
+    sent = False
     if request.method == 'POST':
         # Форма была передана на обработку
         form = EmailPostForm(request.POST)
@@ -62,9 +63,18 @@ def post_share(request, post_id):
             # Поля формы прошли валидацию
             cd = form.cleaned_data
             # ....отправить электронное письмо
+            subject = f"{cd['name']} recommends you read"\
+            f" {post.title}"
+
+            message = f"Read {post.title} \n\n" \
+            f" {cd['name']}\ comments: {cd['comments']}"
+
+            send_mail(subject, message, 'spriteverdar777@gmail.com',
+                      [cd['to']])
+            sent = True
     else:
         form = EmailPostForm()
-    return render(request, 'webrepetitor/share.html', {'post': post, 'form': form})
+    return render(request, 'webrepetitor/share.html', {'post': post, 'form': form, 'sent': sent})
 
 
 

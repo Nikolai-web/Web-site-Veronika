@@ -10,6 +10,8 @@ urlpatterns = [
     path('rubric', views.rubric, name='rubric'),
     path('haracteristic', views.haracteristic, name='haracteristic'),
     path('price', views.price, name='price'),
-    path('predmet', views.predmet, name='predmet')
+    path('predmet', views.predmet, name='predmet'),
+    # Страница для электронной почты
+    path('share', views.share, name='share')
 
 ]
