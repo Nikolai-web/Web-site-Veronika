@@ -1,0 +1,22 @@
+{% extends "webrepetitor/base.html" %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+<div>
+ <div class="alert alert-warning mt-2">
+  {% if sent %}
+    <h1>E-mail Успешно отправлено!</h1>
+    <p>
+      "{{ post.rubric }}" На почтовый адрес: {{ form.cleaned_data.to }}.
+    </p>
+  {% else %}
+    <h1>Отправить на почту:  </h1>
+    <form method="post" novalidate>
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Отправить сообщение">
+    </form>
+  </div>
+  {% endif %}
+{% endblock %}
