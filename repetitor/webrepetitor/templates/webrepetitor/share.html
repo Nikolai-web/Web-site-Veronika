@@ -4,6 +4,7 @@
 
 {% block content %}
 <div>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
  <div class="alert alert-warning mt-2">
   {% if sent %}
     <h1>E-mail Успешно отправлено!</h1>
@@ -11,7 +12,10 @@
       "{{ post.rubric }}" На почтовый адрес: {{ form.cleaned_data.to }}.
     </p>
   {% else %}
-    <h1>Отправить на почту:  </h1>
+     <h1>Телеграмм для связи:</h1>
+     <a href="https://t.me/VeronikaIgorevnP">Вероника Игоревна</a>
+    <h1>Моя электронная почта:  </h1>
+     <p>start85@mail.ru</p>
     <form method="post" novalidate>
       {{ form.as_p }}
       {% csrf_token %}
