@@ -21,10 +21,9 @@ def main_page(request):
 
 def rubric(request):
     """Информация о рубриках"""
-    bbs = Bd.objects.order_by('id')
-    rubric = Rubric.objects.all()
-    context = {'bbs': bbs, 'rubrics': rubric}
-    return render(request, 'webrepetitor/rubrici.html', context)
+    posts = Bd.published.all()
+    return render(request, 'webrepetitor/rubrici.html', {'posts': posts})
+
 
 
 def haracteristic(request):
@@ -83,7 +82,5 @@ def post_detail(request, id):
     post = get_object_or_404(Bd, id=id, status=Bd.Status.PUBLISHED)
     return render(request, 'webrepetitor/detail.html', {'post': post})
 
-def post_list(request):
-    posts = Bd.published.all()
-    return render(request, 'webrepetitor/list.html', {'posts': posts})
+
 

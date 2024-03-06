@@ -14,5 +14,5 @@ urlpatterns = [
     # Страница для электронной почты
     path('share', views.post_share, name='share'),
     path('<int:id>/', views.post_detail, name='post_detail'),
-    path('post_list', views.post_list, name='post_list'),
+
 ]
