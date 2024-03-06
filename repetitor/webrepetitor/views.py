@@ -52,9 +52,9 @@ def predmet(request):
 
 
 
-def share(request):
+def post_share(request):
     # Извлечь пост по id
-    post = get_object_or_404(Bd, id=1, status=Bd.Status.PUBLISHED)
+    post = Bd.published.all()
     sent = False
     if request.method == 'POST':
         # Форма была передана на обработку
@@ -79,4 +79,11 @@ def share(request):
 
 
 
+def post_detail(request, id):
+    post = get_object_or_404(Bd, id=id, status=Bd.Status.PUBLISHED)
+    return render(request, 'webrepetitor/detail.html', {'post': post})
+
+def post_list(request):
+    posts = Bd.published.all()
+    return render(request, 'webrepetitor/list.html', {'posts': posts})
 
