@@ -8,30 +8,28 @@ from django.core.mail import send_mail
 
 def main_page(request):
     """Домашняя страница сайта"""
-    bbs = Bd.objects.all()
+    posts = Bd.objects.all()
     rubrics = Rubric.objects.all()
     # Постраничная разбивка
-    paginator = Paginator(bbs, 1)
+    paginator = Paginator(posts, 1)
     page_nam = request.GET.get('page', 1)
     page = paginator.get_page(page_nam)
-    context = {'rubrics': rubrics, 'page': page, 'bbs': page.object_list}
+    context = {'rubrics': rubrics, 'page': page, 'posts': page.object_list}
     return render(request, 'webrepetitor/main_page.html', context)
 
 
 
-def rubric(request):
+def rubrik(request):
     """Информация о рубриках"""
     posts = Bd.published.all()
-    return render(request, 'webrepetitor/rubrici.html', {'posts': posts})
-
+    rubrics = Rubric.objects.all()
+    return render(request, 'webrepetitor/rubrici.html', {'posts': posts, 'rubrics': rubrics})
 
 
 def haracteristic(request):
     """Характеристика"""
-    bbs = Bd.objects.all()
-    rubrics = Rubric.objects.all()
-    context = {'bbs': bbs, 'rubrics': rubrics}
-    return render(request, 'webrepetitor/haracteristic.html', context)
+    bbs = Bd.published.all().filter(id=6)
+    return render(request, 'webrepetitor/haracteristic.html', {'bbs': bbs})
 
 
 def price(request):
@@ -44,11 +42,8 @@ def price(request):
 
 def predmet(request):
     """Предметы преподавания"""
-    bbs = Bd.objects.all()
-    rubrics = Rubric.objects.all()
-    context = {'bbs': bbs, 'rubrics': rubrics}
-    return render(request, 'webrepetitor/predmet.html', context)
-
+    bbs = Bd.objects.all().order_by('id')[:2]
+    return render(request, 'webrepetitor/predmet.html', {'bbs': bbs})
 
 
 def post_share(request):
@@ -74,8 +69,6 @@ def post_share(request):
     else:
         form = EmailPostForm()
     return render(request, 'webrepetitor/share.html', {'post': post, 'form': form, 'sent': sent})
-
-
 
 
 def post_detail(request, id):

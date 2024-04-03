@@ -7,11 +7,11 @@
 <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
       <h1 class="display-4 fw-normal text-body-emphasis">Мои предметы</h1>
           {% for el in bbs %}
+            <div class="alert alert-warning mt-2">
 
-        <div class="alert alert-warning mt-2">
-
-            <a>{{ el.title }}</a>
-             <h3>{{ el.content }}</h3>
+                      <p class="date">{{ el.title }}
+            </p>
+            {{ post.body|truncatewords_html:30|linebreaks }}
 
         </div>
         {% endfor %}

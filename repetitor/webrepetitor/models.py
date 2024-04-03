@@ -28,6 +28,7 @@ class Bd(models.Model):
     # Опубликованные рубрики
     rubric = models.ForeignKey('Rubric', null=True,
                                on_delete=models.PROTECT, verbose_name='Рубрика')
+
     objects = models.Manager()
     # Менеджер, который позволяет извлекать посты
     published = PublishedManager()
@@ -37,6 +38,7 @@ class Bd(models.Model):
 
     def get_absolute_url(self):
         return reverse('webrepetitor:main_page', args=[self.id])
+
 
 
 class Rubric(models.Model):
@@ -49,5 +51,6 @@ class Rubric(models.Model):
         verbose_name_plural = 'Рубрики'
         verbose_name = 'Рубрика'
         ordering = ['name']
+
 
 

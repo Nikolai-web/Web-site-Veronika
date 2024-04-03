@@ -1,5 +1,5 @@
 {% extends "webrepetitor/base.html" %}
-
+{% load static %}
 {% block title %}Контакты{% endblock %}
 
 {% block content %}
@@ -9,11 +9,16 @@
   {% if sent %}
     <h1>E-mail Успешно отправлено!</h1>
     <p>
-      "{{ post.rubric }}" На почтовый адрес: {{ form.cleaned_data.to }}.
+      "{{post.rubric}}" На почтовый адрес: {{ form.cleaned_data.to }}.
     </p>
   {% else %}
      <h1>Телеграмм для связи:</h1>
-     <a href="https://t.me/VeronikaIgorevnP">Вероника Игоревна</a>
+
+         <a href="https://t.me/VeronikaIgorevnP"><img src="static/webrepetitor/icons.png" alt="Телеграмм"></a>
+
+
+
+
     <h1>Моя электронная почта:  </h1>
      <p>start85@mail.ru</p>
     <form method="post" novalidate>
@@ -21,6 +26,6 @@
       {% csrf_token %}
       <input type="submit" value="Отправить сообщение">
     </form>
-  </div>
+  <div>
   {% endif %}
 {% endblock %}
